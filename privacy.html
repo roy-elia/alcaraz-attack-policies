@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy Policy — Alcaraz Attack Pipeline</title>
+<link rel="stylesheet" href="style.css">
+</head><body><main>
+<header>
+  <h1>Alcaraz Attack Pipeline Privacy Policy</h1>
+  <p class="eff">Effective date: July 29, 2026</p>
+</header>
+<nav><a href="index.html">← Policies</a><a href="terms.html">Terms of Service</a></nav>
+<p>Alcaraz Attack Pipeline is a private content-management and publishing tool run by a
+single operator on their own machine. This policy explains the information it handles —
+both for the connected publishing account and for the third-party material the pipeline
+reads.</p>
+
+<h2>Information handled</h2>
+<p><strong>Connected account.</strong> The basic TikTok or YouTube profile information and
+account identifier returned by the platform, OAuth access and refresh tokens, the videos
+and captions selected for publishing, and publishing results.</p>
+<p>The service requests only the permissions needed for account connection and content
+posting. It does not sell personal information or use connected account data for targeted
+advertising.</p>
+<p><strong>Third-party creators.</strong> The pipeline reads publicly listed videos from
+source accounts the operator has named. It records the creator's public account handle, the
+source platform, and public metadata about the account's recent videos — candidate counts,
+tennis-relevant candidate counts, and the highest view count seen — plus health and
+relevance labels, timestamps, and failure reason codes. It does not collect private profile
+data, contact details, follower lists, or anything not visible on the public listing.</p>
+<p><strong>Publication history.</strong> Each publishing attempt is recorded against the
+source it came from: source platform, source key, source video id, originating account
+handle, the generated hook and title, duration, the render and content digests, the
+destination platform, the resulting post id and URL, and the outcome. These records exist
+to prevent the same source video from being published twice.</p>
+<p><strong>Engagement metrics.</strong> For published videos, the pipeline stores periodic
+performance snapshots of the operator's own posts: video id, views, likes, comments,
+estimated minutes watched, average view duration and percentage, and subscribers gained,
+each tied back to the source video and originating handle.</p>
+<p><strong>Reviewer messages.</strong> Approval happens over Telegram. The pipeline stores
+the reviewer's written feedback text after sanitization, the quality categories derived
+from it, the approve/reject decision, and the mapping between Telegram message identifiers
+and the render under review. Raw reviewer prose is never inserted into prompts, commands,
+API URLs, or publish payloads.</p>
+<p><strong>Operational records.</strong> Run artifact directories, rendered video files,
+audit event logs, budget and queue records, and LangGraph checkpoint databases needed to
+resume or diagnose a run.</p>
+
+<h2>How information is used</h2>
+<p>Information is used to authenticate the connected account, decide which public source
+videos are worth processing, prepare and submit authorized content, report publishing
+status, prevent duplicate or unauthorized publication, improve future source ranking and
+metadata from the operator's own review decisions, and maintain the security and
+reliability of the pipeline.</p>
+
+<h2>Where information is stored</h2>
+<p>Everything above is stored locally, on the operator's own machine. The ledgers are
+private SQLite databases under the project's <code>runs/</code> directory, created with
+owner-only file permissions; credentials live in a <code>.env</code> file that is excluded
+from the source-code repository. There is no hosted backend and no shared database.</p>
+<p>Information is shared with TikTok or YouTube only as needed to authenticate the account
+and perform requested publishing operations, and with Telegram to deliver the approval
+message to the operator's own chat. Optional components — a rented GPU host for watermark
+removal — receive only bounded image crops and masks; source audio, full videos, platform
+tokens, and publishing credentials never leave the operator's machine.</p>
+<p>Encrypted backups of this state can be created with AES-256-GCM; the encryption key is
+held by the operator.</p>
+
+<h2>Retention and deletion</h2>
+<p>Some records are pruned automatically. The defaults, all operator-configurable:</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Record</th><th>Setting</th><th>Default</th></tr></thead>
+<tbody>
+<tr><td>Rendered video output directories</td><td><code>RENDER_OUTPUT_RETENTION_DAYS</code></td><td>3 days</td></tr>
+<tr><td>Approved but unpublished candidates</td><td><code>CANDIDATE_QUEUE_RETENTION_DAYS</code></td><td>7 days</td></tr>
+<tr><td>Run artifact directories and audit trail</td><td><code>AUDIT_RETENTION_DAYS</code></td><td>30 days</td></tr>
+<tr><td>Telegram reviewer feedback</td><td><code>REVIEWER_FEEDBACK_RETENTION_DAYS</code></td><td>365 days</td></tr>
+</tbody></table></div>
+<p>Other records have <strong>no automatic expiry</strong> and persist until the operator
+deletes them: the publication-history ledger, the source-account health and prospect
+registry, and the published-video performance snapshots. These are retained so that a
+source video is never republished and so ranking decisions stay reproducible.</p>
+<p>Deletion is manual. Tokens can be revoked through TikTok or YouTube, which ends the
+pipeline's access to the connected account. Local records are deleted by the operator
+removing the relevant rows or SQLite files under <code>runs/</code>. There is no automated
+request-and-erase workflow, and no way for a third party to delete records directly; a
+creator who wants their handle and the associated public metadata removed should contact
+the operator using the details below.</p>
+
+<h2>Security</h2>
+<p>Reasonable technical and organizational safeguards are used, including restricted
+credentials, owner-only file permissions on private state, private configuration,
+authorization checks on every approval, and disabled-by-default live publishing. No system
+can guarantee absolute security.</p>
+
+<h2>Children</h2>
+<p>The service is not directed to children and is not intended to collect personal
+information from children.</p>
+
+<h2>Changes and contact</h2>
+<p>This policy may be updated when the service or applicable platform requirements change.
+Questions, removal requests, or deletion requests may be submitted through the project
+operator's GitHub profile: <a href="https://github.com/roy-elia">https://github.com/roy-elia</a></p>
+</main></body></html>
