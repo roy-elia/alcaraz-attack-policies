@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Authorization callback — Alcaraz Attack Pipeline</title>
+<link rel="stylesheet" href="../style.css">
+</head><body><main>
+<header>
+  <h1>Authorization received</h1>
+  <p class="eff">This page is the OAuth redirect target. It runs entirely in your browser and sends nothing anywhere.</p>
+</header>
+<p>Copy the <strong>entire address</strong> from your browser's address bar and paste it into the
+waiting terminal prompt.</p>
+<p><code id="url">(reading the address bar…)</code></p>
+<p id="state"></p>
+<h2>If you closed the terminal</h2>
+<p>Run the authorization again — the code below is single-use and short-lived, so it costs
+nothing to discard:</p>
+<p><code>python authorize_tiktok.py --paste-redirect</code></p>
+<footer>
+  <a href="../index.html">Policies</a> · This page stores nothing and transmits nothing.
+  The authorization code is protected by PKCE and cannot be exchanged without the secret
+  held by the machine that started the request.
+</footer>
+<script>
+  // Display only. Nothing is stored, sent, or logged from this page.
+  document.getElementById("url").textContent = window.location.href;
+  var code = new URLSearchParams(window.location.search).get("code");
+  document.getElementById("state").textContent = code
+    ? "An authorization code is present in the address above."
+    : "No authorization code in the address — start the flow from the terminal command.";
+</script>
+</main></body></html>
