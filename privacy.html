@@ -6,7 +6,7 @@
 </head><body><main>
 <header>
   <h1>Alcaraz Attack Pipeline Privacy Policy</h1>
-  <p class="eff">Effective date: July 29, 2026</p>
+  <p class="eff">Effective date: September 11, 2026</p>
 </header>
 <nav><a href="index.html">← Policies</a><a href="terms.html">Terms of Service</a></nav>
 <p>Alcaraz Attack Pipeline is a private content-management and publishing tool run by a
@@ -18,8 +18,10 @@ reads.</p>
 <p><strong>Connected account.</strong> The basic TikTok or YouTube profile information and
 account identifier returned by the platform, OAuth access and refresh tokens, the videos
 and captions selected for publishing, and publishing results.</p>
-<p>The service requests only the permissions needed for account connection and content
-posting. It does not sell personal information or use connected account data for targeted
+<p>The service requests permissions for account connection, content posting, channel
+identity checks, and read-only analytics for posts it owns. Optional playlist filing is
+disabled by default and requests a separate permission only when the operator enables it.
+It does not sell personal information or use connected account data for targeted
 advertising.</p>
 <p><strong>Third-party creators.</strong> The pipeline reads publicly listed videos from
 source accounts the operator has named. It records the creator's public account handle, the
@@ -65,6 +67,15 @@ tokens, and publishing credentials never leave the operator's machine.</p>
 <p>Encrypted backups of this state can be created with AES-256-GCM; the encryption key is
 held by the operator.</p>
 
+<h2>YouTube API Services</h2>
+<p>The YouTube integration uses YouTube API Services. By connecting a YouTube account or
+using the integration, the account holder also agrees to the
+<a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. Google's handling
+of data is described in the <a href="https://policies.google.com/privacy">Google Privacy
+Policy</a>. The account holder can review or remove the app's permissions at
+<a href="https://security.google.com/settings/security/permissions">Google Account
+security permissions</a>.</p>
+
 <h2>Retention and deletion</h2>
 <p>Some records are pruned automatically. The defaults, all operator-configurable:</p>
 <div class="tablewrap"><table>
@@ -74,17 +85,21 @@ held by the operator.</p>
 <tr><td>Approved but unpublished candidates</td><td><code>CANDIDATE_QUEUE_RETENTION_DAYS</code></td><td>7 days</td></tr>
 <tr><td>Run artifact directories and audit trail</td><td><code>AUDIT_RETENTION_DAYS</code></td><td>30 days</td></tr>
 <tr><td>Telegram reviewer feedback</td><td><code>REVIEWER_FEEDBACK_RETENTION_DAYS</code></td><td>365 days</td></tr>
+<tr><td>Non-statistical YouTube API data</td><td>Lifecycle reconciliation</td><td>Refreshed or deleted within 30 days</td></tr>
+<tr><td>YouTube API statistics</td><td>Lifecycle reconciliation</td><td>30 days by default; up to 36 months only after the applicable Additional Policy acceptance and recurring authorization/video checks</td></tr>
+<tr><td>YouTube data after revocation or deletion request</td><td>Revoke-and-delete workflow</td><td>Within 7 days</td></tr>
 </tbody></table></div>
-<p>Other records have <strong>no automatic expiry</strong> and persist until the operator
-deletes them: the publication-history ledger, the source-account health and prospect
-registry, and the published-video performance snapshots. These are retained so that a
-source video is never republished and so ranking decisions stay reproducible.</p>
-<p>Deletion is manual. Tokens can be revoked through TikTok or YouTube, which ends the
-pipeline's access to the connected account. Local records are deleted by the operator
-removing the relevant rows or SQLite files under <code>runs/</code>. There is no automated
-request-and-erase workflow, and no way for a third party to delete records directly; a
-creator who wants their handle and the associated public metadata removed should contact
-the operator using the details below.</p>
+<p>Raw API-provided counts may be stored for the permitted period. Ratios, scores,
+rankings, experiment winners, and other independently calculated YouTube metrics are
+disabled until Google accepts the applicable Analytics and Reporting Additional Policy.
+When enabled, they are labelled as independently calculated and not supplied by YouTube.</p>
+<p>The account holder can revoke Google access through the security-permissions link
+above. The operator also has a documented revoke-and-delete workflow that revokes the
+token, removes the local YouTube OAuth record, and deletes locally stored YouTube API
+performance and experiment data. Requests sent through the contact method below are
+completed within seven days. Non-API source and publication provenance may be retained
+where needed to prevent an unauthorized or duplicate publication; it is not used to
+reconstruct deleted YouTube account data.</p>
 
 <h2>Security</h2>
 <p>Reasonable technical and organizational safeguards are used, including restricted
